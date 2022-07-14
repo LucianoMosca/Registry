@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,9 +14,9 @@ public class Person {
 	public String country;
 	private int children;
 	private LocalDate birthDate;
-	public ArrayList<Vehicule> vehicules = new ArrayList<>();
+	public ArrayList<Vehicle> vehicles = new ArrayList<>();
 	private int age;
-    private int amountVehicules= vehicules.size();
+    private int amountVehicles= vehicles.size();
 	////////////////////////////////////////////////////
 
     
@@ -40,7 +40,7 @@ public class Person {
 	
 	//Method toString
 	public String toString() {
-		return "ID: " + idPerson + "\nName: " + name + "\nLastName: " + lastName + "\nCountry: " + country + "\nAmount of children: " + children + "\nDate of birth: " + birthDate + "\nAge: " + age + "\n" + "vehicules: " + vehicules + "\n";                        
+		return "ID: " + idPerson + "\nName: " + name + "\nLastName: " + lastName + "\nCountry: " + country + "\nAmount of children: " + children + "\nDate of birth: " + birthDate + "\nAge: " + age + "\n" + "vehicles: " + vehicles + "\n";                        
 	}
 	
 	
