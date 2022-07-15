@@ -201,15 +201,15 @@ public class PersonsRegistry {
 		frmMainWindow.getContentPane().add(lblVehiculeName);	
 		
 		JLabel lblColor = new JLabel("Color");
-		lblColor.setBounds(460, 138, 114, 15);
+		lblColor.setBounds(460, 210, 114, 15);
 		frmMainWindow.getContentPane().add(lblColor);
 		
 		JLabel lbl1 = new JLabel("Brand");
-		lbl1.setBounds(460, 173, 70, 19);
+		lbl1.setBounds(460, 136, 70, 19);
 		frmMainWindow.getContentPane().add(lbl1);
 		
 		JLabel lbl2 = new JLabel("Model");
-		lbl2.setBounds(460, 210, 139, 15);
+		lbl2.setBounds(460, 175, 139, 15);
 		frmMainWindow.getContentPane().add(lbl2);
 
 
@@ -381,7 +381,7 @@ public class PersonsRegistry {
 			}
 		});
 		textColor.setColumns(10);
-		textColor.setBounds(460, 154, 114, 19);
+		textColor.setBounds(460, 227, 114, 19);
 		frmMainWindow.getContentPane().add(textColor);
 	
 		textBrand = new JTextField();
@@ -401,7 +401,7 @@ public class PersonsRegistry {
 			}
 		});
 		textBrand.setColumns(10);
-		textBrand.setBounds(460, 191, 114, 19);
+		textBrand.setBounds(460, 154, 114, 19);
 		frmMainWindow.getContentPane().add(textBrand);
 
 		textKOP = new JTextField();
@@ -430,7 +430,7 @@ public class PersonsRegistry {
 			}
 		});
 		textModel.setColumns(10);
-		textModel.setBounds(460, 227, 114, 19);
+		textModel.setBounds(460, 190, 114, 19);
 		frmMainWindow.getContentPane().add(textModel);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -588,7 +588,7 @@ public class PersonsRegistry {
 				arrPersons.add(p);
 				
 			}catch(Exception ex){
-             JOptionPane.showMessageDialog(null, "Datos no v�lidos.");
+             JOptionPane.showMessageDialog(null, "Invalid data");
 			}
 
 				//We make sure the comboBoxPersons update everytime we add a person		
@@ -659,18 +659,7 @@ public class PersonsRegistry {
 				String strModel = textModel.getText();
 				textAreaVehicles.setText(textAreaVehicles.getText() + ((arrVolatilVehicles.size() + 1) + totalVehicles.size())  + " " + strVehiculeName + "\n");
 				
-				if(comboVehicles.getSelectedIndex() == 4) {
-					Boat boat = createBoat(strVehiculeName, strColor, strBrand, strModel, comboPersons);
-					//Boat boat = new Boat(((arrVolatilVehicles.size() + 1) + totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel, arrPersons.get(comboPersons.getSelectedIndex()));
-					arrVolatilVehicles.add(boat);
-				}
-				if(comboVehicles.getSelectedIndex() == 3) {
-					int passengers = Integer.parseInt(textKOP.getText());
-					Plane plane = createPlane(strVehiculeName, strColor, strBrand, strModel, passengers, comboPersons);
-					//Plane plane = new Plane(((arrVolatilVehicles.size() + 1) + totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel, passengers, arrPersons.get(comboPersons.getSelectedIndex()));
-					arrVolatilVehicles.add(plane);
-				}
-				
+
 				if(comboVehicles.getSelectedIndex()==1) {
 					double kilometers = Double.parseDouble(textKOP.getText());
 					Car car = createCar(strVehiculeName, strColor, strBrand, strModel, kilometers, comboPersons );
@@ -686,6 +675,18 @@ public class PersonsRegistry {
 					arrVolatilVehicles.add(bike);
 
 				}
+				if(comboVehicles.getSelectedIndex() == 3) {
+					Boat boat = createBoat(strVehiculeName, strColor, strBrand, strModel, comboPersons);
+					//Boat boat = new Boat(((arrVolatilVehicles.size() + 1) + totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel, arrPersons.get(comboPersons.getSelectedIndex()));
+					arrVolatilVehicles.add(boat);
+				}
+				if(comboVehicles.getSelectedIndex() == 4) {
+					int passengers = Integer.parseInt(textKOP.getText());
+					Plane plane = createPlane(strVehiculeName, strColor, strBrand, strModel, passengers, comboPersons);
+					//Plane plane = new Plane(((arrVolatilVehicles.size() + 1) + totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel, passengers, arrPersons.get(comboPersons.getSelectedIndex()));
+					arrVolatilVehicles.add(plane);
+				}
+				
 				
 				//This feature unables the user to switch from a person to another after registering the first vehicule
 				comboPersons.enable(false);
@@ -747,6 +748,21 @@ public class PersonsRegistry {
 		});
 		btnChangeView.setBounds(40, 317, 139, 27);
 		frmMainWindow.getContentPane().add(btnChangeView);
+		
+		
+//under construction
+		JComboBox comboBrand = new JComboBox();
+		comboBrand.setModel(new DefaultComboBoxModel(new String[] {"", "Tesla", "Ford", "Subaru", "Fiat"}));
+		comboBrand.setBounds(421, 153, 29, 21);
+		frmMainWindow.getContentPane().add(comboBrand);
+		
+		JComboBox comboModel = new JComboBox();
+		comboModel.setBounds(421, 190, 29, 21);
+		frmMainWindow.getContentPane().add(comboModel);
+		
+		JComboBox comboColor = new JComboBox();
+		comboColor.setBounds(421, 227, 29, 21);
+		frmMainWindow.getContentPane().add(comboColor);
 		
 		
 		
