@@ -31,6 +31,9 @@ public class Person {
 		this.age = calculateAge(fechaNacimiento).getYears();
 	}
 	
+	public int getAge() {
+		return age;
+	}
 	
 	//Method to get person's age
 	public Period calculateAge(LocalDate birthDate) {

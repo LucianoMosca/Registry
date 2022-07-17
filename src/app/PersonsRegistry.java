@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -88,7 +89,7 @@ public class PersonsRegistry {
 		frmMainWindow = new JFrame();
 		frmMainWindow.getContentPane().setBackground(new Color(204, 244, 255));
 		frmMainWindow.setTitle("PERSON'S REGISTRY");
-		frmMainWindow.setBounds(100, 100, 989, 698);
+		frmMainWindow.setBounds(100, 100, 485, 733);
 		frmMainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainWindow.getContentPane().setLayout(null);
 
@@ -109,12 +110,157 @@ public class PersonsRegistry {
 			}
 		});
 		comboTheme.setModel(new DefaultComboBoxModel(new String[] { "Sky blue", "Pink", "Orange" }));
-		comboTheme.setBounds(822, 27, 114, 19);
+		comboTheme.setBounds(364, 25, 77, 19);
 		frmMainWindow.getContentPane().add(comboTheme);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Countries' comboBox
+
+		// Here we will display the registered persons
+		TextArea textAreaPersons = new TextArea();
+		textAreaPersons.setEditable(false);
+		textAreaPersons.setBackground(UIManager.getColor("InternalFrame.borderHighlight"));
+		textAreaPersons.setBounds(40, 458, 401, 216);
+		frmMainWindow.getContentPane().add(textAreaPersons);
+
+		// Labels, images and separators
+		JLabel lblRedmi9A = new JLabel("");
+		Image img2 = new ImageIcon(this.getClass().getResource("/logoSemiTinyALPHA.png")).getImage();
+		lblRedmi9A.setIcon(new ImageIcon(img2));
+		lblRedmi9A.setBounds(15, 10, 70, 45);
+		frmMainWindow.getContentPane().add(lblRedmi9A);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(12, 47, 440, 2);
+		frmMainWindow.getContentPane().add(separator);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(12, 375, 440, 2);
+		frmMainWindow.getContentPane().add(separator_1);
+
+		JLabel lblTheme = new JLabel("THEME");
+		lblTheme.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTheme.setBounds(344, 10, 103, 15);
+		frmMainWindow.getContentPane().add(lblTheme);
+
+		JLabel lblIcon = new JLabel("");
+		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		Image img3 = new ImageIcon(this.getClass().getResource("/peopleMedium.png")).getImage();
+		lblIcon.setIcon(new ImageIcon(img3));
+		lblIcon.setBounds(162, 47, 77, 82);
+		frmMainWindow.getContentPane().add(lblIcon);
+
+		JLabel lblTitle = new JLabel("PERSON'S REGISTRY");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Lato Semibold", Font.BOLD, 18));
+		lblTitle.setBounds(0, 1, 450, 54);
+		frmMainWindow.getContentPane().add(lblTitle);
+
+		JSeparator separator_3_1 = new JSeparator(SwingConstants.VERTICAL);
+		separator_3_1.setBounds(242, 47, 2, 328);
+		frmMainWindow.getContentPane().add(separator_3_1);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(12, 420, 440, 2);
+		frmMainWindow.getContentPane().add(separator_2);
+
+		JLabel lblSOP = new JLabel("PERSONS");
+		lblSOP.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSOP.setFont(new Font("Lato Semibold", Font.BOLD, 18));
+		lblSOP.setBounds(144, 370, 172, 54);
+		frmMainWindow.getContentPane().add(lblSOP);
+
+		JLabel lblSubTitle = new JLabel("ADD A PERSON!");
+		lblSubTitle.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblSubTitle.setBounds(40, 79, 200, 13);
+		frmMainWindow.getContentPane().add(lblSubTitle);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Persons
+		JLabel lblName = new JLabel("First name");
+		lblName.setBounds(40, 120, 89, 15);
+		frmMainWindow.getContentPane().add(lblName);
+
+		JLabel lblLName = new JLabel("Last name");
+		lblLName.setBounds(40, 160, 103, 15);
+		frmMainWindow.getContentPane().add(lblLName);
+
+		JLabel lblCountry = new JLabel("Country");
+		lblCountry.setBounds(40, 200, 123, 15);
+		frmMainWindow.getContentPane().add(lblCountry);
+
+		JLabel lblChildAmount = new JLabel("Amount of children");
+		lblChildAmount.setBounds(40, 240, 139, 19);
+		frmMainWindow.getContentPane().add(lblChildAmount);
+
+		JLabel lblBirthDate = new JLabel("Date of birth");
+		lblBirthDate.setBounds(40, 280, 172, 15);
+		frmMainWindow.getContentPane().add(lblBirthDate);
+
+		// There is also a dateChooser!
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(40, 300, 150, 19);
+		frmMainWindow.getContentPane().add(dateChooser);
+
+		textName = new JTextField();
+		textName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+				boolean upper = key >= 65 && key <= 90;
+				boolean lower = key >= 97 && key <= 122;
+
+				if (!(lower || upper)) {
+					e.consume();
+				}
+			}
+		});
+		textName.setBounds(40, 140, 114, 19);
+		frmMainWindow.getContentPane().add(textName);
+		textName.setColumns(10);
+
+		textLName = new JTextField();
+		textLName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+				boolean upper = key >= 65 && key <= 90;
+				boolean lower = key >= 97 && key <= 122;
+
+				if (!(lower || upper)) {
+					e.consume();
+				}
+			}
+		});
+		textLName.setColumns(10);
+		textLName.setBounds(40, 180, 114, 19);
+		frmMainWindow.getContentPane().add(textLName);
+
+		textChildren = new JTextField();
+		textChildren.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent hijosE) {
+				int key = hijosE.getKeyChar();
+
+				boolean numbers = key >= 48 && key <= 57;
+
+				if (!numbers) {
+					hijosE.consume();
+				}
+
+				if (textChildren.getText().trim().length() == 10) {
+					hijosE.consume();
+				}
+
+			}
+		});
+		textChildren.setColumns(10);
+		textChildren.setBounds(40, 260, 114, 19);
+		frmMainWindow.getContentPane().add(textChildren);
+
 		JComboBox comboCountry = new JComboBox();
 		comboCountry.setFont(new Font("Dialog", Font.BOLD, 10));
 		comboCountry.setModel(new DefaultComboBoxModel(new String[] { "Afghanistan", "Albania", "Algeria", "Andorra",
@@ -143,15 +289,39 @@ public class PersonsRegistry {
 				"Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay",
 				"Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe" }));
 		comboCountry.setMaximumRowCount(19);
-		comboCountry.setBounds(82, 154, 114, 19);
+		comboCountry.setBounds(40, 220, 114, 19);
 		frmMainWindow.getContentPane().add(comboCountry);
 
-		// Here we will display the registered persons
-		TextArea textAreaPersons = new TextArea();
-		textAreaPersons.setEditable(false);
-		textAreaPersons.setBackground(UIManager.getColor("InternalFrame.borderHighlight"));
-		textAreaPersons.setBounds(67, 416, 869, 216);
-		frmMainWindow.getContentPane().add(textAreaPersons);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Vehicles
+
+		JLabel lblRegisteredPersons = new JLabel("Owner");
+		lblRegisteredPersons.setBounds(253, 120, 154, 15);
+		frmMainWindow.getContentPane().add(lblRegisteredPersons);
+
+		JLabel lblKOP = new JLabel("Kilometers");
+		lblKOP.setBounds(162, 122, 70, 13);
+		frmMainWindow.getContentPane().add(lblKOP);
+
+		JLabel lblVehiculeName = new JLabel("Vehicle name");
+		lblVehiculeName.setBounds(40, 160, 129, 15);
+		frmMainWindow.getContentPane().add(lblVehiculeName);
+
+		JLabel lblColor = new JLabel("Color");
+		lblColor.setBounds(40, 280, 114, 15);
+		frmMainWindow.getContentPane().add(lblColor);
+
+		JLabel lbl1 = new JLabel("Brand");
+		lbl1.setBounds(40, 200, 70, 19);
+		frmMainWindow.getContentPane().add(lbl1);
+
+		JLabel lbl2 = new JLabel("Model");
+		lbl2.setBounds(40, 240, 139, 15);
+		frmMainWindow.getContentPane().add(lbl2);
+
+		JLabel lblVehicles = new JLabel("Vehicles");
+		lblVehicles.setBounds(40, 120, 70, 15);
+		frmMainWindow.getContentPane().add(lblVehicles);
 
 		// Vehicles' counter
 		JLabel lblVCounter = new JLabel("0");
@@ -164,188 +334,8 @@ public class PersonsRegistry {
 		TextArea textAreaVehicles = new TextArea();
 		textAreaVehicles.setBackground(UIManager.getColor("InternalFrame.borderLight"));
 		textAreaVehicles.setEditable(false);
-		textAreaVehicles.setBounds(748, 117, 188, 135);
+		textAreaVehicles.setBounds(253, 180, 188, 92);
 		frmMainWindow.getContentPane().add(textAreaVehicles);
-
-		// Person's counter
-		JLabel lblPCounter = new JLabel("0");
-		lblPCounter.setFont(new Font("Dialog", Font.BOLD, 40));
-		lblPCounter.setBounds(316, 80, 70, 47);
-		frmMainWindow.getContentPane().add(lblPCounter);
-
-		// Labels, images and separators
-		JLabel lblRedmi9A = new JLabel("");
-		Image img2 = new ImageIcon(this.getClass().getResource("/logoSemiTiny.png")).getImage();
-		lblRedmi9A.setIcon(new ImageIcon(img2));
-		lblRedmi9A.setBounds(15, 1, 70, 45);
-		frmMainWindow.getContentPane().add(lblRedmi9A);
-
-		JSeparator separator = new JSeparator();
-		separator.setBounds(22, 47, 940, 2);
-		frmMainWindow.getContentPane().add(separator);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(12, 305, 965, 2);
-		frmMainWindow.getContentPane().add(separator_1);
-
-		JLabel lblTheme = new JLabel("Theme");
-		lblTheme.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTheme.setBounds(822, 10, 103, 15);
-		frmMainWindow.getContentPane().add(lblTheme);
-
-		JLabel lblWomen = new JLabel("");
-		Image img3 = new ImageIcon(this.getClass().getResource("/Office-Girl-icon.png")).getImage();
-		lblWomen.setIcon(new ImageIcon(img3));
-		lblWomen.setBounds(247, 65, 77, 82);
-		frmMainWindow.getContentPane().add(lblWomen);
-
-		JLabel lblTitulo = new JLabel("PERSON'S REGISTRY");
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Lato Semibold", Font.BOLD, 18));
-		lblTitulo.setBounds(0, 1, 902, 54);
-		frmMainWindow.getContentPane().add(lblTitulo);
-
-		JLabel lblVehiculeName = new JLabel("Vehicle name");
-		lblVehiculeName.setBounds(460, 99, 129, 15);
-		frmMainWindow.getContentPane().add(lblVehiculeName);
-
-		JLabel lblColor = new JLabel("Color");
-		lblColor.setBounds(460, 210, 114, 15);
-		frmMainWindow.getContentPane().add(lblColor);
-
-		JLabel lbl1 = new JLabel("Brand");
-		lbl1.setBounds(460, 136, 70, 19);
-		frmMainWindow.getContentPane().add(lbl1);
-
-		JLabel lbl2 = new JLabel("Model");
-		lbl2.setBounds(460, 175, 139, 15);
-		frmMainWindow.getContentPane().add(lbl2);
-
-		JLabel lblVehicles = new JLabel("Vehicles");
-		lblVehicles.setBounds(460, 55, 70, 15);
-		frmMainWindow.getContentPane().add(lblVehicles);
-
-		JLabel lblName = new JLabel("First name");
-		lblName.setBounds(81, 55, 89, 15);
-		frmMainWindow.getContentPane().add(lblName);
-
-		JLabel lblApellido = new JLabel("Last name");
-		lblApellido.setBounds(82, 99, 103, 15);
-		frmMainWindow.getContentPane().add(lblApellido);
-
-		JLabel lblNewLabel = new JLabel("Country");
-		lblNewLabel.setBounds(82, 138, 123, 15);
-		frmMainWindow.getContentPane().add(lblNewLabel);
-
-		JLabel lblCantidadDeHijos = new JLabel("Amount of children");
-		lblCantidadDeHijos.setBounds(82, 173, 139, 19);
-		frmMainWindow.getContentPane().add(lblCantidadDeHijos);
-
-		JLabel lblFechaDeNacimiento = new JLabel("Date of birth");
-		lblFechaDeNacimiento.setBounds(82, 210, 172, 15);
-		frmMainWindow.getContentPane().add(lblFechaDeNacimiento);
-
-		JLabel lblCar = new JLabel("");
-		Image imgAuto = new ImageIcon(this.getClass().getResource("/vw-beetle-icon.png")).getImage();
-		lblCar.setIcon(new ImageIcon(imgAuto));
-		lblCar.setBounds(608, 76, 70, 54);
-		frmMainWindow.getContentPane().add(lblCar);
-
-		JSeparator separator_3_1 = new JSeparator(SwingConstants.VERTICAL);
-		separator_3_1.setBounds(448, 47, 2, 256);
-		frmMainWindow.getContentPane().add(separator_3_1);
-		Image img = new ImageIcon(this.getClass().getResource("/Save-icon.png")).getImage();
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(15, 354, 947, 2);
-		frmMainWindow.getContentPane().add(separator_2);
-
-		JLabel lblSOP = new JLabel("PERSONS");
-		lblSOP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSOP.setFont(new Font("Lato Semibold", Font.BOLD, 18));
-		lblSOP.setBounds(232, 305, 437, 54);
-		frmMainWindow.getContentPane().add(lblSOP);
-
-		JSeparator separatorVerticalBottom = new JSeparator(SwingConstants.VERTICAL);
-		separatorVerticalBottom.setBounds(448, 354, 2, 279);
-		frmMainWindow.getContentPane().add(separatorVerticalBottom);
-		separatorVerticalBottom.setVisible(false);
-
-		JLabel lblRegisteredPersons = new JLabel("Registered persons");
-		lblRegisteredPersons.setBounds(748, 55, 154, 15);
-		frmMainWindow.getContentPane().add(lblRegisteredPersons);
-
-		JLabel lblKOP = new JLabel("Kilometers");
-		lblKOP.setBounds(608, 139, 70, 13);
-		frmMainWindow.getContentPane().add(lblKOP);
-
-		// There is also a dateChooser!
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(82, 227, 150, 19);
-		frmMainWindow.getContentPane().add(dateChooser);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		// With this events we avoid most of the possible layer 8 errors by restricting
-		// the characters the user could type in the following textFields
-
-		textName = new JTextField();
-		textName.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-				boolean upper = key >= 65 && key <= 90;
-				boolean lower = key >= 97 && key <= 122;
-
-				if (!(lower || upper)) {
-					e.consume();
-				}
-			}
-		});
-		textName.setBounds(81, 76, 114, 19);
-		frmMainWindow.getContentPane().add(textName);
-		textName.setColumns(10);
-
-		textLName = new JTextField();
-		textLName.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-				boolean upper = key >= 65 && key <= 90;
-				boolean lower = key >= 97 && key <= 122;
-
-				if (!(lower || upper)) {
-					e.consume();
-				}
-			}
-		});
-		textLName.setColumns(10);
-		textLName.setBounds(82, 117, 114, 19);
-		frmMainWindow.getContentPane().add(textLName);
-
-		textChildren = new JTextField();
-		textChildren.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent hijosE) {
-				int key = hijosE.getKeyChar();
-
-				boolean numbers = key >= 48 && key <= 57;
-
-				if (!numbers) {
-					hijosE.consume();
-				}
-
-				if (textChildren.getText().trim().length() == 10) {
-					hijosE.consume();
-				}
-
-			}
-		});
-		textChildren.setColumns(10);
-		textChildren.setBounds(82, 191, 114, 19);
-		frmMainWindow.getContentPane().add(textChildren);
 
 		textVName = new JTextField();
 		textVName.addKeyListener(new KeyAdapter() {
@@ -363,49 +353,189 @@ public class PersonsRegistry {
 			}
 		});
 		textVName.setColumns(10);
-		textVName.setBounds(460, 117, 114, 19);
+		textVName.setBounds(40, 180, 114, 19);
 		frmMainWindow.getContentPane().add(textVName);
 
 		textKOP = new JTextField();
-		textKOP.setBounds(609, 154, 96, 19);
+		textKOP.setBounds(162, 140, 77, 19);
 		frmMainWindow.getContentPane().add(textKOP);
 		textKOP.setColumns(10);
 
-
 		JComboBox comboColor = new JComboBox();
-		comboColor.setModel(new DefaultComboBoxModel(new String[] {"", "White", "Black", "Red", "Blue"}));
-		comboColor.setBounds(460, 227, 114, 19);
+		comboColor.setModel(new DefaultComboBoxModel(new String[] { "", "White", "Black", "Red", "Blue" }));
+		comboColor.setBounds(40, 300, 114, 19);
 		frmMainWindow.getContentPane().add(comboColor);
 
 		JComboBox comboModel = new JComboBox();
-		comboModel.setBounds(460, 191, 114, 19);
+		comboModel.setBounds(40, 260, 114, 19);
 		frmMainWindow.getContentPane().add(comboModel);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		JComboBox comboBrand = new JComboBox();		
-		//In the following actionListener we will make sure the comboModel's options change whenever we change the vehicle's brand.
+		JComboBox comboBrand = new JComboBox();
+		// In the following actionListener we will make sure the comboModel's options
+		// change whenever we change the vehicle's brand.
 		comboBrand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedOption = comboBrand.getSelectedItem().toString();
-				
-				if(comboBrand.getSelectedIndex()==0) {
-					String[] model = {""};
-					changeCombo(comboModel, model);	
+
+				if (comboBrand.getSelectedIndex() == 0) {
+					String[] model = { "" };
+					changeCombo(comboModel, model);
 				} else {
 					changeModel(comboModel, selectedOption);
 				}
-				
+
 			}
 		});
-		comboBrand.setBounds(460, 154, 114, 19);
+		comboBrand.setBounds(40, 220, 114, 19);
 		frmMainWindow.getContentPane().add(comboBrand);
-		
+
+		// invisible by default
+		lblRegisteredPersons.setVisible(false);
+		lblKOP.setVisible(false);
+		lblVehiculeName.setVisible(false);
+		lblColor.setVisible(false);
+		lbl1.setVisible(false);
+		lbl2.setVisible(false);
+		lblVCounter.setVisible(false);
+		lblVehicles.setVisible(false);
+		textAreaVehicles.setVisible(false);
+		comboBrand.setVisible(false);
+		comboModel.setVisible(false);
+		comboColor.setVisible(false);
+
+		textVName.setVisible(false);
+		textKOP.setVisible(false);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		// Stats labels and separators
+
+		JLabel lblPopulation = new JLabel("TOTAL POPULATION");
+		lblPopulation.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblPopulation.setBounds(65, 440, 114, 13);
+		frmMainWindow.getContentPane().add(lblPopulation);
+
+		JLabel lblTotalVehicles = new JLabel("TOTAL VEHICLES");
+		lblTotalVehicles.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblTotalVehicles.setBounds(293, 440, 114, 13);
+		frmMainWindow.getContentPane().add(lblTotalVehicles);
+
+		JLabel lblCounterPlus18 = new JLabel("0");
+		lblCounterPlus18.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCounterPlus18.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblCounterPlus18.setBounds(15, 590, 200, 50);
+		frmMainWindow.getContentPane().add(lblCounterPlus18);
+
+		JLabel lblCounterTVehicles = new JLabel("0");
+		lblCounterTVehicles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCounterTVehicles.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblCounterTVehicles.setBounds(240, 460, 200, 50);
+		frmMainWindow.getContentPane().add(lblCounterTVehicles);
+
+		JLabel lblCounterVxP = new JLabel("0");
+		lblCounterVxP.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCounterVxP.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblCounterVxP.setBounds(240, 590, 200, 50);
+		frmMainWindow.getContentPane().add(lblCounterVxP);
+
+		JLabel lblPlus18 = new JLabel("ADULT POPULATION");
+		lblPlus18.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblPlus18.setBounds(65, 570, 114, 13);
+		frmMainWindow.getContentPane().add(lblPlus18);
+
+		JLabel lblVxP = new JLabel("VEHICLES PER PERSON");
+		lblVxP.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblVxP.setBounds(282, 570, 125, 13);
+		frmMainWindow.getContentPane().add(lblVxP);
+
+		// Person's counter
+		JLabel lblCounterPopulation = new JLabel("0");
+		lblCounterPopulation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCounterPopulation.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblCounterPopulation.setBounds(15, 460, 200, 50);
+		frmMainWindow.getContentPane().add(lblCounterPopulation);
+
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(12, 550, 440, 2);
+		frmMainWindow.getContentPane().add(separator_3);
+
+		JSeparator separator_3_2 = new JSeparator();
+		separator_3_2.setBounds(12, 680, 440, 2);
+		frmMainWindow.getContentPane().add(separator_3_2);
+
+		JSeparator separatorVerticalBottom = new JSeparator(SwingConstants.VERTICAL);
+		separatorVerticalBottom.setBounds(225, 424, 2, 256);
+		frmMainWindow.getContentPane().add(separatorVerticalBottom);
+
+		// We make them invisible by default
+		lblPopulation.setVisible(false);
+		lblTotalVehicles.setVisible(false);
+		lblCounterPlus18.setVisible(false);
+		lblCounterTVehicles.setVisible(false);
+		lblCounterVxP.setVisible(false);
+		lblPlus18.setVisible(false);
+		lblVxP.setVisible(false);
+		lblCounterPopulation.setVisible(false);
+		separator_3.setVisible(false);
+		separator_3_2.setVisible(false);
+		separatorVerticalBottom.setVisible(false);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		// With this events we avoid most of the possible layer 8 errors by restricting
+		// the characters the user could type in the following textFields
+
+		JComboBox comboPersons = new JComboBox();
+		comboPersons.setBounds(253, 139, 188, 21);
+		frmMainWindow.getContentPane().add(comboPersons);
+		// invisible by default
+		comboPersons.setVisible(false);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		////////////////////////////////////////////////////////////////////////////////////
+
+		// This is where we actually start creating persons and adding them their
+		// respective Vehicles
+
+		JButton btnAddPerson = new JButton("ADD PERSON");
+		btnAddPerson.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				// First we extract data and check their integrity to avoid undesirable errors
+				try {
+					String name = textName.getText();
+					String lName = textLName.getText();
+					int aChildren = (byte) Integer.parseInt(textChildren.getText());
+					String country = (String) (comboCountry.getSelectedItem());
+
+					LocalDate bDate = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					Person p = new Person((arrPersons.size() + 1), name, lName, country, aChildren, bDate);
+					arrPersons.add(p);
+
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Invalid data");
+				}
+
+				// We make sure the comboBoxPersons update everytime we add a person
+				updateComboBoxPerson(comboPersons);
+
+				textName.setText("");
+				textLName.setText("");
+				textChildren.setText("");
+				dateChooser.setDate(null);
+				lblCounterPopulation.setText(Integer.toString(arrPersons.size()));
+				lblCounterPlus18.setText(Integer.toString(plus18Counter(arrPersons)));
+			}
+		});
+		btnAddPerson.setBounds(40, 330, 145, 40);
+		frmMainWindow.getContentPane().add(btnAddPerson);
+
 		/*
-		 * We make these labels, comboBoxes and textFields invisible until the user choose a vehicle
-		 * type in comboVehicles
+		 * We make these labels, comboBoxes and textFields invisible until the user
+		 * choose a vehicle type in comboVehicles
 		 */
 		comboBrand.setVisible(false);
 		comboModel.setVisible(false);
@@ -538,64 +668,22 @@ public class PersonsRegistry {
 					comboColor.setVisible(true);
 					textKOP.setVisible(true);
 				}
-				//Fields cleansing
+				// Fields cleansing
 
-				String[] model = {""};
-				
+				String[] model = { "" };
+
 				changeCombo(comboModel, model);
 				comboColor.setSelectedIndex(0);
 				comboBrand.setSelectedIndex(0);
-				
-				
+
 				textKOP.setText(null);
 				textVName.setText(null);
 			}
 		});
-		comboVehicles.setBounds(460, 76, 114, 19);
+		comboVehicles.setBounds(40, 140, 114, 19);
 		frmMainWindow.getContentPane().add(comboVehicles);
 
-		////////////////////////////////////////////////////////////////////////////////////
-
-		// This is where we actually start creating persons and adding them their
-		// respective Vehicles
-
-		JComboBox comboPersons = new JComboBox();
-		comboPersons.setBounds(748, 76, 188, 21);
-		frmMainWindow.getContentPane().add(comboPersons);
-
-		JButton btnAddPerson = new JButton("ADD PERSON");
-		btnAddPerson.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				// First we extract data and check their integrity to avoid undesirable errors
-				try {
-					String name = textName.getText();
-					String lName = textLName.getText();
-					int aChildren = (byte) Integer.parseInt(textChildren.getText());
-					String country = (String) (comboCountry.getSelectedItem());
-
-					LocalDate bDate = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-					Person p = new Person((arrPersons.size() + 1), name, lName, country, aChildren, bDate);
-					arrPersons.add(p);
-
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Invalid data");
-				}
-
-				// We make sure the comboBoxPersons update everytime we add a person
-				updateComboBoxPerson(comboPersons);
-
-				textName.setText("");
-				textLName.setText("");
-				textChildren.setText("");
-				dateChooser.setDate(null);
-				lblPCounter.setText(Integer.toString(arrPersons.size()));
-			}
-		});
-		btnAddPerson.setBounds(172, 258, 145, 39);
-		frmMainWindow.getContentPane().add(btnAddPerson);
+		comboVehicles.setVisible(false);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
@@ -604,7 +692,7 @@ public class PersonsRegistry {
 
 		JCheckBox chckbxSoloPadres = new JCheckBox("Only parents");
 		chckbxSoloPadres.setBackground(new Color(204, 153, 204));
-		chckbxSoloPadres.setBounds(67, 389, 139, 21);
+		chckbxSoloPadres.setBounds(49, 436, 114, 21);
 		frmMainWindow.getContentPane().add(chckbxSoloPadres);
 
 		JButton btnShowPersons = new JButton("SHOW PERSONS");
@@ -630,7 +718,7 @@ public class PersonsRegistry {
 
 			}
 		});
-		btnShowPersons.setBounds(748, 371, 184, 39);
+		btnShowPersons.setBounds(271, 433, 170, 19);
 		frmMainWindow.getContentPane().add(btnShowPersons);
 
 		// Adding Vehicles to the vehicle list
@@ -696,10 +784,10 @@ public class PersonsRegistry {
 
 			}
 		});
-		btnAddVehicule.setBounds(460, 260, 172, 35);
+		btnAddVehicule.setBounds(40, 330, 145, 35);
 		frmMainWindow.getContentPane().add(btnAddVehicule);
 
-		// With this action listener we make sure the "Add vehicule" button is invisible
+		// With this action listener we make sure the "Add vehicle" button is invisible
 		// until a vehicle type is selected
 		btnAddVehicule.setVisible(false);
 		comboVehicles.addActionListener(new ActionListener() {
@@ -715,7 +803,11 @@ public class PersonsRegistry {
 		//
 
 		// Here we assign vehicles to their respective owners
-		JButton btnSave = new JButton("SAVE PERSON");
+		JButton btnSave = new JButton("SAVE");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -728,12 +820,16 @@ public class PersonsRegistry {
 				comboPersons.enable(true);
 				arrVolatilVehicles.clear();
 
-				lblVCounter.setText("0");
+				//We set the values of the stats
+				lblCounterTVehicles.setText(Integer.toString(totalVehicles.size()));
+				lblCounterVxP.setText(Integer.toString(totalVehicles.size()/arrPersons.size()));
 
 			}
 		});
+		// invisible by default
+		btnSave.setVisible(false);
 
-		btnSave.setBounds(748, 258, 188, 35);
+		btnSave.setBounds(253, 330, 188, 35);
 		frmMainWindow.getContentPane().add(btnSave);
 
 		JButton btnChangeView = new JButton("VIEW STATS");
@@ -742,12 +838,30 @@ public class PersonsRegistry {
 
 				// We change what the user sees when pressing btnChangeView
 				changeView(btnChangeView, chckbxSoloPadres, textAreaPersons, btnShowPersons, separatorVerticalBottom,
-						lblSOP);
+						lblSOP, lblPopulation, lblTotalVehicles, lblCounterPlus18, lblCounterTVehicles, lblCounterVxP,
+						lblPlus18, lblVxP, lblCounterPopulation, separator_3, separator_3_2);
 
 			}
 		});
-		btnChangeView.setBounds(40, 317, 139, 27);
+		btnChangeView.setBounds(302, 383, 139, 27);
 		frmMainWindow.getContentPane().add(btnChangeView);
+
+		JButton btnNext = new JButton("NEXT");
+		btnNext.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblSubTitle.setText("ADD VEHICLES!");
+
+				changeRegistry( lblSubTitle,  lblIcon,  lblVehiculeName,  lblColor,  lbl1,  lbl2,
+						 lblVCounter,  lblVehicles,  textAreaVehicles,  comboPersons,
+						 comboBrand,  comboModel,  comboColor,  comboVehicles,
+						 textVName,  btnNext,  dateChooser,  lblBirthDate,  lblChildAmount,
+						 lblCountry,  lblName,  lblLName,  comboCountry,  btnAddVehicule,
+						 btnAddPerson,  btnSave, lblRegisteredPersons);
+			}
+		});
+		btnNext.setBounds(305, 65, 125, 21);
+		frmMainWindow.getContentPane().add(btnNext);
 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -763,7 +877,10 @@ public class PersonsRegistry {
 	// In order to do this we are going to hide or show elements depending of the
 	// user's choice.
 	public void changeView(JButton btnChangeView, JCheckBox chckbxSoloPadres, TextArea textAreaPersons,
-			JButton btnShowPersons, JSeparator separatorVerticalBottom, JLabel lblSOP) {
+			JButton btnShowPersons, JSeparator separatorVerticalBottom, JLabel lblSOP, JLabel lblPopulation,
+			JLabel lblTotalVehicles, JLabel lblCounterPlus18, JLabel lblCounterTVehicles, JLabel lblCounterVxP,
+			JLabel lblPlus18, JLabel lblVxP, JLabel lblCounterPopulation, JSeparator separator_3,
+			JSeparator separator_3_2) {
 
 		if (btnChangeView.getText().equals("VIEW STATS")) {
 			// From Stats to Persons
@@ -771,11 +888,24 @@ public class PersonsRegistry {
 			chckbxSoloPadres.setVisible(false);
 			textAreaPersons.setVisible(false);
 			btnShowPersons.setVisible(false);
-			separatorVerticalBottom.setVisible(true);
 
+			lblPopulation.setVisible(true);
+			lblTotalVehicles.setVisible(true);
+			lblCounterPlus18.setVisible(true);
+			lblCounterTVehicles.setVisible(true);
+			lblCounterVxP.setVisible(true);
+			lblPlus18.setVisible(true);
+			lblVxP.setVisible(true);
+			lblCounterPopulation.setVisible(true);
+			separator_3.setVisible(true);
+			separator_3_2.setVisible(true);
+
+			separatorVerticalBottom.setVisible(true);
 			lblSOP.setText("STATS");
 			btnChangeView.setText("VIEW PERSONS");
-
+			
+			
+			
 		} else {
 			// From Stats to Persons
 
@@ -783,10 +913,130 @@ public class PersonsRegistry {
 			textAreaPersons.setVisible(true);
 			btnShowPersons.setVisible(true);
 			separatorVerticalBottom.setVisible(false);
+			lblPopulation.setVisible(false);
+			lblTotalVehicles.setVisible(false);
+			lblCounterPlus18.setVisible(false);
+			lblCounterTVehicles.setVisible(false);
+			lblCounterVxP.setVisible(false);
+			lblPlus18.setVisible(false);
+			lblVxP.setVisible(false);
+			lblCounterPopulation.setVisible(false);
+			separator_3.setVisible(false);
+			separator_3_2.setVisible(false);
+			separatorVerticalBottom.setVisible(false);
 
 			lblSOP.setText("PERSONS");
 			btnChangeView.setText("VIEW STATS");
 
+		}
+
+	}
+
+	
+	//We will use this method to change bewtween the person's section and the vehicle's section.
+	public void changeRegistry(JLabel lblSubTitle, JLabel lblIcon, JLabel lblVehiculeName, JLabel lblColor, JLabel lbl1, JLabel lbl2,
+			JLabel lblVCounter, JLabel lblVehicles, TextArea textAreaVehicles, JComboBox comboPersons,
+			JComboBox comboBrand, JComboBox comboModel, JComboBox comboColor, JComboBox comboVehicles,
+			JTextField textVName, JButton btnNext, JDateChooser dateChooser, JLabel lblBirthDate, JLabel lblChildAmount,
+			JLabel lblCountry, JLabel lblName, JLabel lblLName, JComboBox comboCountry, JButton btnAddVehicule,
+			JButton btnAddPerson, JButton btnSave, JLabel lblRegisteredPersons) {
+
+		if (btnNext.getText().equals("NEXT")) {
+			// From Persons to Vehicles
+
+			comboVehicles.setVisible(true);
+			//Combo reset
+			comboVehicles.setModel(new DefaultComboBoxModel(new String[] { "None", "Car", "Motorcycle", "Boat", "Plane" }));
+			
+			//lblVehiculeName.setVisible(true);
+			//lblColor.setVisible(true);
+			//lbl1.setVisible(true);
+			//lbl2.setVisible(true);
+			//lblVCounter.setVisible(true);
+			lblVehicles.setVisible(true);
+			//comboBrand.setVisible(true);
+			//comboModel.setVisible(true);
+			//comboColor.setVisible(true);
+			comboPersons.setVisible(true);
+			btnAddVehicule.setVisible(true);
+			btnSave.setVisible(true);
+			textAreaVehicles.setVisible(true);
+			lblRegisteredPersons.setVisible(true);
+			
+			//textVName.setVisible(true);
+			//textKOP.setVisible(true);
+			btnNext.setText("BACK");
+			//////////////////////////////////////////////////////////////////////
+			textChildren.setVisible(false);
+			textLName.setVisible(false);
+			textName.setVisible(false);
+			dateChooser.setVisible(false);
+			lblBirthDate.setVisible(false);
+			lblChildAmount.setVisible(false);
+			lblCountry.setVisible(false);
+			lblName.setVisible(false);
+			lblLName.setVisible(false);
+			comboCountry.setVisible(false);
+			btnAddPerson.setVisible(false);
+
+			/////////////////////////////////////////////////////////////////
+			Image img3 = new ImageIcon(this.getClass().getResource("/car.png")).getImage();
+			lblIcon.setIcon(new ImageIcon(img3));
+			
+			////////////////////////////////////////////////////////////////
+			lblSubTitle.setText("ADD VEHICLES!");
+		} else {
+			// From Persons to Vehicles
+
+			
+		
+			///////////////////////////////////////////////////////////////////
+			lblVehiculeName.setVisible(false);
+			lblColor.setVisible(false);
+			lbl1.setVisible(false);
+			lbl2.setVisible(false);
+			lblVCounter.setVisible(false);
+			lblVehicles.setVisible(false);
+			textAreaVehicles.setVisible(false);
+			comboBrand.setVisible(false);
+			comboModel.setVisible(false);
+			comboColor.setVisible(false);
+			comboVehicles.setVisible(false);
+			comboPersons.setVisible(false);
+			btnAddVehicule.setVisible(false);
+			btnSave.setVisible(false);
+			lblRegisteredPersons.setVisible(false);
+
+			
+			textVName.setVisible(false);
+			textKOP.setVisible(false);
+			comboVehicles.setVisible(false);
+			/////////////////////////////////////
+
+			textChildren.setVisible(true);
+			textLName.setVisible(true);
+			textName.setVisible(true);
+			dateChooser.setVisible(true);
+			lblBirthDate.setVisible(true);
+			lblChildAmount.setVisible(true);
+			lblCountry.setVisible(true);
+			lblName.setVisible(true);
+			lblLName.setVisible(true);
+			comboCountry.setVisible(true);
+			btnAddPerson.setVisible(true);
+
+			btnNext.setText("NEXT");
+			//////////////////////////////////////////////////////////////////////
+			
+			//Icon change
+			Image img3 = new ImageIcon(this.getClass().getResource("/peopleMedium.png")).getImage();
+			lblIcon.setIcon(new ImageIcon(img3));
+			///////////////////////////////////////////////////////////////////////
+			
+			//Subtitle change
+			lblSubTitle.setText("ADD PERSONS!");
+			
+			
 		}
 
 	}
@@ -862,42 +1112,39 @@ public class PersonsRegistry {
 	public void changeCombo(JComboBox comboBox, String[] array) {
 		comboBox.setModel(new DefaultComboBoxModel(array));
 	}
-	
-	
+
 	// This function retrieves us the type of the vehicle we are trying to add
 	public String vehicleType(String selectedOption) {
 		String type = "";
-		
-		
-		if(selectedOption.equals("Airbus")||selectedOption.equals("Boeing")) {
+
+		if (selectedOption.equals("Airbus") || selectedOption.equals("Boeing")) {
 			type = "Plane";
 		}
-		
-		if(selectedOption.equals("Bertram")||selectedOption.equals("Chaparral")||selectedOption.equals("Safran")) {
+
+		if (selectedOption.equals("Bertram") || selectedOption.equals("Chaparral") || selectedOption.equals("Safran")) {
 			type = "Boat";
 		}
-		
-		if(selectedOption.equals("Benelli")||selectedOption.equals("Yumbo")||selectedOption.equals("Harley Davidson")||selectedOption.equals("Yamaha")) {
+
+		if (selectedOption.equals("Benelli") || selectedOption.equals("Yumbo")
+				|| selectedOption.equals("Harley Davidson") || selectedOption.equals("Yamaha")) {
 			type = "Motorcycle";
 		}
-		
-		if(selectedOption.equals("Tesla")||selectedOption.equals("Ford")||selectedOption.equals("Subaru")||selectedOption.equals("Fiat")) {
+
+		if (selectedOption.equals("Tesla") || selectedOption.equals("Ford") || selectedOption.equals("Subaru")
+				|| selectedOption.equals("Fiat")) {
 			type = "Car";
 		}
-		
-		
+
 		return type;
 	}
-	
-	
-	//This method is for changing the options inside of comboModel
+
+	// This method is for changing the options inside of comboModel
 	public void changeModel(JComboBox comboBox, String selectedOption) {
-	
+
 		String type = vehicleType(selectedOption);
-		
-		
-		//Plane
-		if(type.equals("Plane")) {
+
+		// Plane
+		if (type.equals("Plane")) {
 			if (selectedOption.equals("Airbus")) {
 				String[] model = { "", "A220", "A300", "A310", "A318" };
 				changeCombo(comboBox, model);
@@ -908,10 +1155,9 @@ public class PersonsRegistry {
 				changeCombo(comboBox, model);
 			}
 		}
-		
-		
-		//Boat
-		else if (type.equals("Boat")) {	
+
+		// Boat
+		else if (type.equals("Boat")) {
 
 			if (selectedOption.equals("Safran")) {
 				String[] model = { "", "737", "747", "767", "777" };
@@ -928,9 +1174,9 @@ public class PersonsRegistry {
 				changeCombo(comboBox, model);
 			}
 		}
-		
-		//Car
-		else if(type.equals("Car")) {
+
+		// Car
+		else if (type.equals("Car")) {
 			if (selectedOption.equals("Tesla")) {
 				String[] model = { "", "Y", "3", "S", "X" };
 				changeCombo(comboBox, model);
@@ -945,17 +1191,15 @@ public class PersonsRegistry {
 				String[] model = { "", "Legacy", "WRX STI", "Outback", "Ascent" };
 				changeCombo(comboBox, model);
 			}
-			
+
 			if (selectedOption.equals("Fiat")) {
 				String[] model = { "", "Abarth", "Uno Turbo", "Coupe", "Spider" };
 				changeCombo(comboBox, model);
 			}
-			
-			
 
 		}
-		//Motorcycle
-		else if(type.equals("Motorcycle")) {
+		// Motorcycle
+		else if (type.equals("Motorcycle")) {
 			if (selectedOption.equals("Benelli")) {
 				String[] model = { "", "TRK502", "TNT150I", "LEONCINO", "TRK251" };
 				changeCombo(comboBox, model);
@@ -967,17 +1211,26 @@ public class PersonsRegistry {
 			}
 
 			if (selectedOption.equals("Yumbo")) {
-				String[] model = { "", "GSIII", "GS-F","PX 110", "Eco 70" };
+				String[] model = { "", "GSIII", "GS-F", "PX 110", "Eco 70" };
 				changeCombo(comboBox, model);
 			}
-			
+
 			if (selectedOption.equals("Harley Davidson")) {
-				String[] model = { "", "Street bob", "Sporster Iron", "Street Glide", "Street Bob" };
+				String[] model = { "", "Street Bob", "Sporster Iron", "Street Glide", "Fat Boy" };
 				changeCombo(comboBox, model);
 			}
-			
-			
+
 		}
 	}
-
+	
+	public int plus18Counter(ArrayList<Person> arrPersons) {
+		int counter = 0;
+		for(Person p : arrPersons) {
+			
+			if((p.getAge()) >= 18) {
+				counter++;
+			}
+		}		
+		return counter;
+	}
 }
