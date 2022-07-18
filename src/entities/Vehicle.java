@@ -2,16 +2,16 @@ package entities;
 
 public class Vehicle {
 	
-	protected int idVehicule;
+	protected int idVehicle;
 	protected String name;
 	protected String brand;
 	protected String model;
 	protected String color;
 	protected Person owner;
-    protected String vehiculeType;
+    protected String vehicleType;
 	
-	public Vehicle (int idVehicule, String name, String brand, String model, String color, Person owner) {
-		this.idVehicule = idVehicule;
+	public Vehicle (int idVehicle, String name, String brand, String model, String color, Person owner) {
+		this.idVehicle = idVehicle;
 		this.name = name;
 		this.brand = brand;
 		this.model = model;
@@ -20,11 +20,11 @@ public class Vehicle {
 	}
 
 	public int getIdVehicule() {
-		return idVehicule;
+		return idVehicle;
 	}
 
-	public void setIdVehicule(int idVehicule) {
-		this.idVehicule = idVehicule;
+	public void setIdVehicule(int idVehicle) {
+		this.idVehicle = idVehicle;
 	}
 
 	public String getName() {
@@ -67,9 +67,13 @@ public class Vehicle {
 		this.model = model;
 	}
 
+	
+	public String getVehicleType(){
+		return vehicleType;
+	}
 	@Override
 	public String toString() {
-		return "Vehiculo [idVehiculo=" + idVehicule + ", nombre=" + name + ", color=" + color + ", owner=" + owner
+		return "Vehiculo [idVehiculo=" + idVehicle + ", nombre=" + name + ", color=" + color + ", owner=" + owner
 				+ "]";
 	}
 }

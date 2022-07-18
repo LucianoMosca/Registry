@@ -8,6 +8,7 @@ public class Motorcycle extends Vehicle {
 	public Motorcycle(int idVehicule, String name, String color, String brand, String model, double kilometers, Person owner) {
 		super(idVehicule, name, brand, model, color, owner);
 		this.kilometers = kilometers;
+		this.vehicleType = "Motorcycle";
 	}
 	
 	public int getWheels(){
@@ -24,7 +25,7 @@ public class Motorcycle extends Vehicle {
 	
 	@Override
 	public String toString() {
-		return "\n"+"Motorcycle: "+ "\n" + "     ID: " + idVehicule + "\n" + "     Name: " + name + "\n" +  "     Brand: " + brand + "\n" + "     Model: " + model + "\n" + "     Kilometers: " + kilometers + "\n" + "     Color: " + color + "\n" + "     Owner: " + owner.name + "\n";
+		return "\n"+"Motorcycle: "+ "\n" + "     ID: " + idVehicle + "\n" + "     Name: " + name + "\n" +  "     Brand: " + brand + "\n" + "     Model: " + model + "\n" + "     Kilometers: " + kilometers + "\n" + "     Color: " + color + "\n" + "     Owner: " + owner.name + "\n";
 
 	}
 	

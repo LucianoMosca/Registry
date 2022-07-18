@@ -89,7 +89,7 @@ public class PersonsRegistry {
 		frmMainWindow = new JFrame();
 		frmMainWindow.getContentPane().setBackground(new Color(204, 244, 255));
 		frmMainWindow.setTitle("PERSON'S REGISTRY");
-		frmMainWindow.setBounds(100, 100, 485, 733);
+		frmMainWindow.setBounds(500, 50, 485, 733);
 		frmMainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainWindow.getContentPane().setLayout(null);
 
@@ -735,43 +735,60 @@ public class PersonsRegistry {
 				String strColor = comboColor.getSelectedItem().toString();
 				String strBrand = comboBrand.getSelectedItem().toString();
 				String strModel = comboModel.getSelectedItem().toString();
-				textAreaVehicles.setText(textAreaVehicles.getText()
-						+ ((arrVolatilVehicles.size() + 1) + totalVehicles.size()) + " " + strVehiculeName + "\n");
 
 				if (comboVehicles.getSelectedIndex() == 1) {
-					double kilometers = Double.parseDouble(textKOP.getText());
-					Car car = createCar(strVehiculeName, strColor, strBrand, strModel, kilometers, comboPersons);
-					// Car car = new Car(((arrVolatilVehicles.size() + 1) + totalVehicles.size()),
-					// strVehiculeName, strColor, strBrand, strModel, kilometers,
-					// arrPersons.get(comboPersons.getSelectedIndex()));
 
-					arrVolatilVehicles.add(car);
+					try {
+						checkData(comboColor, comboBrand, comboModel);
+						double kilometers = Double.parseDouble(textKOP.getText());
+						Car car = createCar(strVehiculeName, strColor, strBrand, strModel, kilometers, comboPersons);
+						arrVolatilVehicles.add(car);
+						textAreaVehicles.setText(textAreaVehicles.getText() + ((arrVolatilVehicles.size() + 1) + totalVehicles.size()) + " " + car.getVehicleType() + " " + strBrand + " " + strModel + "\n");
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Invalid data");
+					}
+
 				}
 
 				if (comboVehicles.getSelectedIndex() == 2) {
-					double kilometers = Double.parseDouble(textKOP.getText());
-					Motorcycle bike = createBike(strVehiculeName, strColor, strBrand, strModel, kilometers,
-							comboPersons);
-					// Motorcycle bike = new Motorcycle(((arrVolatilVehicles.size() + 1) +
-					// totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel,
-					// kilometers, arrPersons.get(comboPersons.getSelectedIndex()));
-					arrVolatilVehicles.add(bike);
+
+					try {
+						checkData(comboColor, comboBrand, comboModel);
+
+						double kilometers = Double.parseDouble(textKOP.getText());
+						Motorcycle bike = createBike(strVehiculeName, strColor, strBrand, strModel, kilometers,comboPersons);
+						arrVolatilVehicles.add(bike);
+						textAreaVehicles.setText(textAreaVehicles.getText() + ((arrVolatilVehicles.size() + 1) + totalVehicles.size()) + " " + bike.getVehicleType() + " " + strBrand + " " + strModel + "\n");
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Invalid data");
+					}
 
 				}
 				if (comboVehicles.getSelectedIndex() == 3) {
-					Boat boat = createBoat(strVehiculeName, strColor, strBrand, strModel, comboPersons);
-					// Boat boat = new Boat(((arrVolatilVehicles.size() + 1) +
-					// totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel,
-					// arrPersons.get(comboPersons.getSelectedIndex()));
-					arrVolatilVehicles.add(boat);
+					try {
+						checkData(comboColor, comboBrand, comboModel);
+						Boat boat = createBoat(strVehiculeName, strColor, strBrand, strModel, comboPersons);
+						textAreaVehicles.setText(textAreaVehicles.getText() + ((arrVolatilVehicles.size() + 1) + totalVehicles.size())+ " " + boat.getVehicleType() + " " + strBrand + " " + strModel + "\n");
+						arrVolatilVehicles.add(boat);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Invalid data");
+					}
 				}
+
 				if (comboVehicles.getSelectedIndex() == 4) {
-					int passengers = Integer.parseInt(textKOP.getText());
-					Plane plane = createPlane(strVehiculeName, strColor, strBrand, strModel, passengers, comboPersons);
-					// Plane plane = new Plane(((arrVolatilVehicles.size() + 1) +
-					// totalVehicles.size()), strVehiculeName, strColor, strBrand, strModel,
-					// passengers, arrPersons.get(comboPersons.getSelectedIndex()));
-					arrVolatilVehicles.add(plane);
+
+					try {
+						checkData(comboColor, comboBrand, comboModel);
+
+						int passengers = Integer.parseInt(textKOP.getText());
+						Plane plane = createPlane(strVehiculeName, strColor, strBrand, strModel, passengers,comboPersons);
+						textAreaVehicles.setText(textAreaVehicles.getText() + ((arrVolatilVehicles.size() + 1) + totalVehicles.size())+ " " + plane.getVehicleType() + " " + strBrand + " " + strModel + "\n");
+						arrVolatilVehicles.add(plane);
+
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Invalid data");
+					}
+
 				}
 
 				// This feature unables the user to switch from a person to another after
@@ -820,9 +837,9 @@ public class PersonsRegistry {
 				comboPersons.enable(true);
 				arrVolatilVehicles.clear();
 
-				//We set the values of the stats
+				// We set the values of the stats
 				lblCounterTVehicles.setText(Integer.toString(totalVehicles.size()));
-				lblCounterVxP.setText(Integer.toString(totalVehicles.size()/arrPersons.size()));
+				lblCounterVxP.setText(Integer.toString(totalVehicles.size() / arrPersons.size()));
 
 			}
 		});
@@ -852,12 +869,10 @@ public class PersonsRegistry {
 			public void mouseClicked(MouseEvent e) {
 				lblSubTitle.setText("ADD VEHICLES!");
 
-				changeRegistry( lblSubTitle,  lblIcon,  lblVehiculeName,  lblColor,  lbl1,  lbl2,
-						 lblVCounter,  lblVehicles,  textAreaVehicles,  comboPersons,
-						 comboBrand,  comboModel,  comboColor,  comboVehicles,
-						 textVName,  btnNext,  dateChooser,  lblBirthDate,  lblChildAmount,
-						 lblCountry,  lblName,  lblLName,  comboCountry,  btnAddVehicule,
-						 btnAddPerson,  btnSave, lblRegisteredPersons);
+				changeRegistry(lblSubTitle, lblIcon, lblVehiculeName, lblColor, lbl1, lbl2, lblVCounter, lblVehicles,
+						textAreaVehicles, comboPersons, comboBrand, comboModel, comboColor, comboVehicles, textVName,
+						btnNext, dateChooser, lblBirthDate, lblChildAmount, lblCountry, lblName, lblLName, comboCountry,
+						btnAddVehicule, btnAddPerson, btnSave, lblRegisteredPersons);
 			}
 		});
 		btnNext.setBounds(305, 65, 125, 21);
@@ -903,9 +918,7 @@ public class PersonsRegistry {
 			separatorVerticalBottom.setVisible(true);
 			lblSOP.setText("STATS");
 			btnChangeView.setText("VIEW PERSONS");
-			
-			
-			
+
 		} else {
 			// From Stats to Persons
 
@@ -932,10 +945,10 @@ public class PersonsRegistry {
 
 	}
 
-	
-	//We will use this method to change bewtween the person's section and the vehicle's section.
-	public void changeRegistry(JLabel lblSubTitle, JLabel lblIcon, JLabel lblVehiculeName, JLabel lblColor, JLabel lbl1, JLabel lbl2,
-			JLabel lblVCounter, JLabel lblVehicles, TextArea textAreaVehicles, JComboBox comboPersons,
+	// We will use this method to change bewtween the person's section and the
+	// vehicle's section.
+	public void changeRegistry(JLabel lblSubTitle, JLabel lblIcon, JLabel lblVehiculeName, JLabel lblColor, JLabel lbl1,
+			JLabel lbl2, JLabel lblVCounter, JLabel lblVehicles, TextArea textAreaVehicles, JComboBox comboPersons,
 			JComboBox comboBrand, JComboBox comboModel, JComboBox comboColor, JComboBox comboVehicles,
 			JTextField textVName, JButton btnNext, JDateChooser dateChooser, JLabel lblBirthDate, JLabel lblChildAmount,
 			JLabel lblCountry, JLabel lblName, JLabel lblLName, JComboBox comboCountry, JButton btnAddVehicule,
@@ -945,26 +958,27 @@ public class PersonsRegistry {
 			// From Persons to Vehicles
 
 			comboVehicles.setVisible(true);
-			//Combo reset
-			comboVehicles.setModel(new DefaultComboBoxModel(new String[] { "None", "Car", "Motorcycle", "Boat", "Plane" }));
-			
-			//lblVehiculeName.setVisible(true);
-			//lblColor.setVisible(true);
-			//lbl1.setVisible(true);
-			//lbl2.setVisible(true);
-			//lblVCounter.setVisible(true);
+			// Combo reset
+			comboVehicles
+					.setModel(new DefaultComboBoxModel(new String[] { "None", "Car", "Motorcycle", "Boat", "Plane" }));
+
+			// lblVehiculeName.setVisible(true);
+			// lblColor.setVisible(true);
+			// lbl1.setVisible(true);
+			// lbl2.setVisible(true);
+			// lblVCounter.setVisible(true);
 			lblVehicles.setVisible(true);
-			//comboBrand.setVisible(true);
-			//comboModel.setVisible(true);
-			//comboColor.setVisible(true);
+			// comboBrand.setVisible(true);
+			// comboModel.setVisible(true);
+			// comboColor.setVisible(true);
 			comboPersons.setVisible(true);
 			btnAddVehicule.setVisible(true);
 			btnSave.setVisible(true);
 			textAreaVehicles.setVisible(true);
 			lblRegisteredPersons.setVisible(true);
-			
-			//textVName.setVisible(true);
-			//textKOP.setVisible(true);
+
+			// textVName.setVisible(true);
+			// textKOP.setVisible(true);
 			btnNext.setText("BACK");
 			//////////////////////////////////////////////////////////////////////
 			textChildren.setVisible(false);
@@ -982,14 +996,12 @@ public class PersonsRegistry {
 			/////////////////////////////////////////////////////////////////
 			Image img3 = new ImageIcon(this.getClass().getResource("/car.png")).getImage();
 			lblIcon.setIcon(new ImageIcon(img3));
-			
+
 			////////////////////////////////////////////////////////////////
 			lblSubTitle.setText("ADD VEHICLES!");
 		} else {
 			// From Persons to Vehicles
 
-			
-		
 			///////////////////////////////////////////////////////////////////
 			lblVehiculeName.setVisible(false);
 			lblColor.setVisible(false);
@@ -1007,7 +1019,6 @@ public class PersonsRegistry {
 			btnSave.setVisible(false);
 			lblRegisteredPersons.setVisible(false);
 
-			
 			textVName.setVisible(false);
 			textKOP.setVisible(false);
 			comboVehicles.setVisible(false);
@@ -1027,16 +1038,15 @@ public class PersonsRegistry {
 
 			btnNext.setText("NEXT");
 			//////////////////////////////////////////////////////////////////////
-			
-			//Icon change
+
+			// Icon change
 			Image img3 = new ImageIcon(this.getClass().getResource("/peopleMedium.png")).getImage();
 			lblIcon.setIcon(new ImageIcon(img3));
 			///////////////////////////////////////////////////////////////////////
-			
-			//Subtitle change
+
+			// Subtitle change
 			lblSubTitle.setText("ADD PERSONS!");
-			
-			
+
 		}
 
 	}
@@ -1222,15 +1232,34 @@ public class PersonsRegistry {
 
 		}
 	}
-	
+
 	public int plus18Counter(ArrayList<Person> arrPersons) {
 		int counter = 0;
-		for(Person p : arrPersons) {
-			
-			if((p.getAge()) >= 18) {
+		for (Person p : arrPersons) {
+
+			if ((p.getAge()) >= 18) {
 				counter++;
 			}
-		}		
+		}
 		return counter;
+	}
+
+	public void checkData(JComboBox comboColor, JComboBox comboBrand, JComboBox comboModel) throws Exception {
+
+		String strVehiculeName = textVName.getText();
+		String strColor = comboColor.getSelectedItem().toString();
+		String strBrand = comboBrand.getSelectedItem().toString();
+		String strModel = comboModel.getSelectedItem().toString();
+
+		if (comboColor.getSelectedItem().toString().length() <= 0) {
+			throw new Exception("Invalid data.");
+		}
+		if (comboBrand.getSelectedItem().toString().length() <= 0) {
+			throw new Exception("Invalid data.");
+		}
+		if (comboModel.getSelectedItem().toString().length() <= 0) {
+			throw new Exception("Invalid data.");
+		}
+
 	}
 }
