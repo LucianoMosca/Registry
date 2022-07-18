@@ -43,7 +43,7 @@ public class Person {
 	
 	//Method toString
 	public String toString() {
-		return "ID: " + idPerson + "\nName: " + name + "\nLastName: " + lastName + "\nCountry: " + country + "\nAmount of children: " + children + "\nDate of birth: " + birthDate + "\nAge: " + age + "\n" + "vehicles: " + vehicles + "\n";                        
+		return "ID: " + idPerson + "\nName: " + name + "\nLast name: " + lastName + "\nCountry: " + country + "\nChildren: " + children + "\nDate of birth: " + birthDate + "\nAge: " + age + "\n" + "vehicles: " + vehicles + "\n";                        
 	}
 	
 	
