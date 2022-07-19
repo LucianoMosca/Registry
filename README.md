@@ -4,7 +4,7 @@ In this project we (Team Redmi 9A) managed to create a user-friendly Swing appli
 respective personal data as well as their respective vehicules' data. 
 
 
-## Members of the team:
+## Team members:
 
 - Giuliano Scognamiglio
 - Alfonso Lopez
